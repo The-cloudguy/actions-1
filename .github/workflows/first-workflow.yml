@@ -10,8 +10,8 @@ jobs:
           run: echo "My First Workflow"
 
         - name: List Files
-          run: ls ../
+          run: pwd
 
-        - name: Read Files
-          run: cat ../README.md
+        # - name: Read Files
+        #   run: cat ../README.md
               
