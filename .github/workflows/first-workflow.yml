@@ -9,9 +9,12 @@ jobs:
         - name: Welcome Message
           run: echo "My First Workflow"
 
-        - name: List Files
-          run: pwd
+        - name: Checkout Repo
+          uses: actions/checkout@v4
 
-        # - name: Read Files
-        #   run: cat ../README.md
+        - name: List Files
+          run: ls
+
+        - name: Read Files
+          run: cat README.md
               
