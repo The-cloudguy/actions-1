@@ -10,8 +10,7 @@ jobs:
         - name: Chekout Repo
           uses: actions/checkout@v4
         
-        - name: Set Proper Persmission for script
-          run: chmod +x asci-script.sh
-          
         - name: Run ascii-script
-          run: ./asci-script.sh
+          run: |
+            chmod +x asci-script.sh
+            ./asci-script.sh
