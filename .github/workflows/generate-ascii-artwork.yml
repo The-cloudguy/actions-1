@@ -3,14 +3,48 @@ name: Generate ASCII Artwork
 on: push
 
 jobs:
-    first_job:
-        name: Generate ASCII Artwork
+    Build_job:
+        name: Build Job
         runs-on: ubuntu-latest
         steps:
         - name: Chekout Repo
           uses: actions/checkout@v4
         
-        - name: Run ascii-script
-          run: |
-            chmod +x asci-script.sh
-            ./asci-script.sh
+        - name: Install cowsay package
+          run: sudo apt-get install -y cowsay
+
+        - name: Generate ASCII artwork and store it in file
+          run: cowsay -f dragon "Run for a cover, I am a Dragon......RAWR..." >> dragon.txt
+
+        - name: Upload the Artifact file
+          uses: actions/upload-artifact@v4
+          with:
+            name: dragon-artifact-file
+            path: dragon.txt
+
+    Test_job:
+      runs-on: ubuntu-latest
+      name: Test Job
+      steps:
+        - name: Download Artifact file
+          uses: actions/download-artifact@v4
+          with:
+            name: dragon-artifact-file
+            
+        - name: Test the file
+          run: grep -i "dragon" dragon.txt
+
+    Deploy_job:
+      runs-on: ubuntu-latest
+      name: Deploy Job
+      steps:
+        - name: Download Artifact file
+          uses: actions/download-artifact@v4
+          with:
+            name: dragon-artifact-file
+
+        - name: Check the file content
+          run: cat dragon.txt
+
+        - name: Deploy the dragon file
+          run: echo "Deploy Dragon......"
